@@ -1,0 +1,72 @@
+nav {
+    background: var(--main-color-3);
+    box-sizing: border-box;
+    color: var(--secondary-color-1);
+    left: 50%;
+    margin: auto;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    transform: translate(-50%, 0);
+    width: 480px;
+    text-align:left;
+}
+
+
+h3{
+    color: var(--main-color-3);
+    font-weight: 600;
+}
+text {
+    color: var(--secondary-color-3);
+    text-decoration: none;
+}
+
+label{
+    color: var(--secondary-color-3);
+    text-decoration: none;
+}
+
+input[type=text]{
+    all: unset;
+    border: 2px var(--secondary-color-3) solid;
+    border-radius: 4px;
+    box-sizing: border-box !important;
+    padding: 10px;
+    width: 100%;
+}
+
+.gunakanSebelum{
+    all: unset;
+    color: var(--secondary-color-3)
+}
+
+.main-content{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form{
+    width: 100%;
+}
+
+.history-item{flex: 1;}
+
+.history-template{
+    border-bottom: 1px var(--secondary-color-3) solid ;
+}
+.history-template:first-of-type{
+    border-top: 1px var(--secondary-color-3) solid ;
+}
+@media only screen and (max-width: 576px) {
+    .center-element{
+        padding: 1.5rem;
+    }
+    main img{
+       max-width: 100px;
+    }
+   
+    nav {
+       width: 100%;
+   }
+}   

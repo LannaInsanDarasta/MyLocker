@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,900;1,400;1,700&display=swap');
+
+:root {
+    --main-color-1: #A9D4DA;
+    --main-color-2: #48d356;
+    --main-color-3: #008699;
+    --secondary-color-1: #ffffff;
+    --secondary-color-2: #D9D9D9;
+    --secondary-color-3: #88888d;
+    --secondary-color-4: #525859;
+    --danger-color: #ee1616;
+    --warning-color: #d1c900;
+    --navbar-height: 60px;
+}
+
+.bg-main-color-1 {
+    background: var(--main-color-1);
+}
+
+.text-main-color-1 {
+    color: var(--main-color-1);
+}
+
+.bg-main-color-2 {
+    background: var(--main-color-2);
+}
+
+.text-main-color-2 {
+    color: var(--main-color-2);
+}
+
+.bg-main-color-3 {
+    background: var(--main-color-3);
+}
+
+.text-main-color-3 {
+    color: var(--main-color-3);
+}
+
+.bg-main-color-4 {
+    background: var(--main-color-4);
+}
+
+.text-main-color-4 {
+    color: var(--main-color-4);
+}
+
+.bg-secondary-color-1 {
+    background: var(--secondary-color-1);
+}
+
+.text-secondary-color-1 {
+    color: var(--secondary-color-1);
+}
+
+.bg-secondary-color-2 {
+    background: var(--secondary-color-2);
+}
+
+.text-secondary-color-2 {
+    color: var(--secondary-color-2);
+}
+
+.bg-secondary-color-3 {
+    background: var(--secondary-color-3);
+}
+
+.text-secondary-color-3 {
+    color: var(--secondary-color-3);
+}
+
+.bg-danger-color {
+    background: var(--danger-color);
+}
+
+.text-danger-color {
+    color: var(--danger-color);
+}
+
+.bg-warning-color {
+    background: var(--warning-color);
+}
+
+.text-warning-color {
+    color: var(--warning-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    align-items: center;
+    background: var(--secondary-color-2);
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    position: relative;
+}
+
+.center-element {
+    background: var(--secondary-color-1);
+    box-sizing: border-box;
+    margin: auto;
+    min-height: 100vh;
+    padding: 4rem;
+    width: 480px;
+}
+
+.nav-margin {
+    margin-top: var(--navbar-height) !important;
+}
+
+nav {
+    align-items: center;
+    background: var(--main-color-3);
+    box-sizing: border-box;
+    color: var(--secondary-color-1);
+    display: flex;
+    height: var(--navbar-height);
+    left: 50%;
+    margin: auto;
+    padding: .5rem;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    transform: translate(-50%, 0);
+    width: 480px;
+}
+
+nav h1 {
+    width: 100%;
+}
+
+@media only screen and (max-width: 576px) {
+    .center-element {
+        width: 100% !important;
+    }
+
+    nav {
+        height: var(--navbar-height);
+        width: 100%;
+    }
+}

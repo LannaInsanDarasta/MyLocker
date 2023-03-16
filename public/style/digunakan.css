@@ -1,0 +1,71 @@
+nav {
+    background: var(--main-color-3);
+    box-sizing: border-box;
+    color: var(--secondary-color-1);
+    left: 50%;
+    margin: auto;
+    padding: 1rem;
+    position: fixed;
+    text-align: left;
+    top: 0;
+    transform: translate(-50%, 0);
+    width: 480px;
+}
+
+button[type=button] {
+    all: unset;
+    background: var(--main-color-3);
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: var(--secondary-color-1);
+    font-weight: 600;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+form>p {
+    all: unset;
+    background: var(--danger-color);
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: var(--secondary-color-1);
+    font-weight: 600;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+text {
+    color: var(--secondary-color-3);
+    text-decoration: none;
+}
+
+label {
+    color: var(--secondary-color-3);
+    text-decoration: none;
+}
+
+input[type=text] {
+    all: unset;
+    border: 2px var(--secondary-color-3) solid;
+    border-radius: 4px;
+    box-sizing: border-box !important;
+    padding: 10px;
+    width: 100%;
+}
+
+.gunakanSebelum {
+    all: unset;
+    color: var(--secondary-color-3);
+}
+
+@media only screen and (max-width: 576px) {
+    main img {
+        max-width: 100px;
+    }
+
+    nav {
+        width: 100%;
+    }
+}
