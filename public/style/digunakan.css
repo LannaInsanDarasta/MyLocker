@@ -12,6 +12,11 @@ nav {
     width: 480px;
 }
 
+.center-elemen img {
+    display : block;
+    margin: 0 auto;
+}
+
 button[type=button] {
     all: unset;
     background: var(--main-color-3);
