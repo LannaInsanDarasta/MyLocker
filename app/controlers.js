@@ -1,10 +1,12 @@
+const { setCookie } = require("../services/auth");
+
 // Put your controller code here
 exports.beranda = (req, res) => {
     const data = {
         title: "MyLocker",
         styles: ["/style/beranda.css"],
         scripts: [],
-        icon: "/image/logo_akun.png"
+        icon: "/image/logo_akun.png",
     };
     res.render("beranda", data);
 };
@@ -12,7 +14,7 @@ exports.beranda = (req, res) => {
 exports.login = (req, res) => {
     const data = {
         styles: ["/style/login.css"],
-        scripts: [],
+        scripts: ["/js/login.js"],
         layout: "layout/auth",
     };
     res.render("login", data);
@@ -45,4 +47,9 @@ exports.profil = (req, res) => {
         icon: "/image/logo_back.png",
     };
     res.render("profil", data);
+};
+
+exports.logout = (req, res) => {
+    setCookie({ res, title: "Authorization", data: "", maxAge: 1 });
+    return res.redirect("/login");
 };

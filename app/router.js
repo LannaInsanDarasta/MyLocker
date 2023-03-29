@@ -1,10 +1,15 @@
 const router = require("express").Router();
 const controller = require("./controlers");
+const {
+    loginRequired,
+    logoutRequired,
+} = require("../middlewares/UiMiddleware");
 
-router.get("/", controller.beranda);
-router.get("/login", controller.login);
-router.get("/register", controller.daftarakun);
-router.get("/status", controller.status);
-router.get("/profil", controller.profil);
+router.get("/", loginRequired, controller.beranda);
+router.get("/logout", loginRequired, controller.logout);
+router.get("/login", logoutRequired, controller.login);
+router.get("/register", logoutRequired, controller.daftarakun);
+router.get("/status", loginRequired, controller.status);
+router.get("/profil", loginRequired, controller.profil);
 
 module.exports = router;

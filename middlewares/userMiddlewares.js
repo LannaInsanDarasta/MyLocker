@@ -1,12 +1,7 @@
 const { resError, ErrorException } = require("../services/responseHandler");
 const prisma = require("../prisma/client");
 const jwt = require("jsonwebtoken");
-const {
-    getAuthorizationToken,
-    getUser,
-    getResetUrlPayload,
-    hashValidator,
-} = require("../services/auth");
+const { getAuthorizationToken, getUser } = require("../services/auth");
 const crypto = require("crypto");
 const loginRequired = async (req, res, next) => {
     const jwtToken = await getAuthorizationToken(req);
