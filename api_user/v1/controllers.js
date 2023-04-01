@@ -20,13 +20,14 @@ const prisma = new PrismaClient();
 const ITEM_LIMIT = Number(process.env.ITEM_LIMIT) || 10;
 
 exports.register = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, noHandphone } = req.body;
     try {
         const newUser = await prisma.user.create({
             data: {
                 username,
                 email,
                 password: generateHash(password),
+                noHandphone,
                 role: { connect: { name: "USER" } },
                 passwordUpdatedAt: new Date(Date.now() - 1000),
                 profil: {
@@ -142,6 +143,8 @@ exports.detail = async (req, res) => {
             select: {
                 username: true,
                 email: true,
+                noHandphone: true,
+                id: true,
                 profil: { select: { full_name: true, photo: true } },
                 role: { select: { name: true } },
             },

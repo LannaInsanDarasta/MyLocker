@@ -23,7 +23,7 @@ exports.login = (req, res) => {
 exports.daftarakun = (req, res) => {
     const data = {
         styles: ["/style/daftarakun.css"],
-        scripts: [],
+        scripts: ["js/daftarakun.js"],
         layout: "layout/auth",
     };
     res.render("daftarakun", data);
@@ -43,7 +43,7 @@ exports.profil = (req, res) => {
     const data = {
         title: "Profil",
         styles: ["/style/profil.css"],
-        scripts: [],
+        scripts: ["js/profil.js"],
         icon: "/image/logo_back.png",
     };
     res.render("profil", data);
