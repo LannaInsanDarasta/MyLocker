@@ -12,4 +12,8 @@ function generateString(length) {
     return result;
 }
 
-module.exports = { generateString };
+function generateInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+module.exports = { generateString, generateInteger };

@@ -82,6 +82,7 @@ model Rent {
 enum TOKEN_TYPE {
   RESET_TOKEN
   VERIFICATION_TOKEN
+  OTP_LOCKER
 }
 
 enum STATUS {

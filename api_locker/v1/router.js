@@ -28,6 +28,13 @@ router.post(
     deviceIsUse,
     controllers.finishRent
 );
+router.post(
+    "/card/generate-token",
+    loginRequired,
+    controllers.createCardRegisterOTP
+);
+
+router.post("/card/register-card", controllers.registerCard);
 
 router.post("/rent/use", deviceIsExist, controllers.startUseLocker);
 
