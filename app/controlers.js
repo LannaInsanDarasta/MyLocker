@@ -14,7 +14,7 @@ exports.beranda = async (req, res) => {
     const data = {
         title: "MyLocker",
         styles: ["/style/beranda.css"],
-        scripts: [],
+        scripts: ["/js/beranda.js"],
         icon: "/image/logo_akun.png",
         username,
     };

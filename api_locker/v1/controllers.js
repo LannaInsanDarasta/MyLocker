@@ -5,7 +5,7 @@ const {
     generateInteger,
 } = require("../../services/stringGenerator");
 const { getUser } = require("../../services/auth");
-const ITEM_LIMIT = 10;
+const ITEM_LIMIT = 20;
 
 exports.createLockerDevice = async (req, res) => {
     try {
@@ -43,7 +43,8 @@ exports.createLockerDevice = async (req, res) => {
 exports.list = async (req, res) => {
     const { search, cursor } = req.query;
     let deviceList;
-
+    const dateObj = new Date();
+    const dataToSend = [];
     try {
         if (search) {
             if (!cursor) {
@@ -61,6 +62,20 @@ exports.list = async (req, res) => {
                     select: {
                         name: true,
                         id: true,
+                        rent: {
+                            where: {
+                                timeSchedule: {
+                                    gte: new Date(
+                                        dateObj.toISOString().split("T")[0]
+                                    ),
+                                },
+                            },
+                            select: {
+                                id: true,
+                                timeSchedule: true,
+                                status: true,
+                            },
+                        },
                     },
                 });
             }
@@ -84,6 +99,20 @@ exports.list = async (req, res) => {
                     select: {
                         name: true,
                         id: true,
+                        rent: {
+                            where: {
+                                timeSchedule: {
+                                    gte: new Date(
+                                        dateObj.toISOString().split("T")[0]
+                                    ),
+                                },
+                            },
+                            select: {
+                                id: true,
+                                timeSchedule: true,
+                                status: true,
+                            },
+                        },
                     },
                 });
             }
@@ -99,6 +128,20 @@ exports.list = async (req, res) => {
                     select: {
                         name: true,
                         id: true,
+                        rent: {
+                            where: {
+                                timeSchedule: {
+                                    gte: new Date(
+                                        dateObj.toISOString().split("T")[0]
+                                    ),
+                                },
+                            },
+                            select: {
+                                id: true,
+                                timeSchedule: true,
+                                status: true,
+                            },
+                        },
                     },
                 });
             }
@@ -115,17 +158,71 @@ exports.list = async (req, res) => {
                     select: {
                         name: true,
                         id: true,
+                        rent: {
+                            where: {
+                                timeSchedule: {
+                                    gte: new Date(
+                                        dateObj.toISOString().split("T")[0]
+                                    ),
+                                },
+                            },
+                            select: {
+                                id: true,
+                                timeSchedule: true,
+                                status: true,
+                            },
+                        },
                     },
                 });
             }
         }
 
+        deviceList.forEach((device) => {
+            console.log(device.name);
+            let rentStatus = null;
+
+            // Jika terdapat tanggal peminjaman yang sama dengan hari ini maka status akan berubah menjadi tidak tersedia
+            device.rent.forEach((d) => {
+                if (
+                    d.timeSchedule.toISOString().split("T")[0] ===
+                    dateObj.toISOString().split("T")[0]
+                ) {
+                    const time = new Intl.DateTimeFormat("id", {
+                        hour: "numeric",
+                        minute: "numeric",
+                    }).format(d.timeSchedule);
+                    if (d.status == "BOOKED") {
+                        rentStatus = `Tidak Tersedia, Sudah Dipesan Untuk ${time} WIB`;
+                    }
+
+                    if (d.status == "USED") {
+                        rentStatus = "Tidak Tersedia, Sudah Digunakan Saat Ini";
+                    }
+                } else {
+                    console.log(rentStatus);
+                    if (rentStatus == null)
+                        rentStatus = "Tersedia Untuk Hari Ini";
+                }
+            });
+
+            // Jika Loker Belum Pernah Dipinjam sama sekali maka tetap tersedia
+            if (device.rent.length <= 0) {
+                if (rentStatus == null) rentStatus = "Tersedia Untuk Hari Ini";
+            }
+
+            dataToSend.push({
+                id: device.id,
+                name: device.name,
+                rentStatus: rentStatus,
+            });
+        });
         return resSuccess({
             res,
             title: "Success list device",
-            data: deviceList,
+            data: dataToSend,
         });
     } catch (error) {
+        console.log(error);
         return resError({
             res,
             title: "Failed to list locker device",

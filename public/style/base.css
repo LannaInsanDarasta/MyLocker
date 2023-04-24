@@ -128,12 +128,14 @@ nav {
     height: var(--navbar-height);
     left: 50%;
     margin: auto;
+    /* overflow-x: hidden; */
     padding: .5rem;
     position: fixed;
     text-align: center;
     top: 0;
     transform: translate(-50%, 0);
     width: 480px;
+
 }
 
 nav h1 {
@@ -171,15 +173,17 @@ nav h1 {
     flex-direction: column;
     height: 100vh;
     left: -400px;
+    opacity: 0;
     padding: 10px;
     position: absolute;
     top: 0;
-    transition: left 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
     width: 70%;
 }
 
 .side-bar-show {
     left: 0;
+    opacity: 1;
 }
 
 .side-bar h3 {
@@ -202,7 +206,9 @@ nav h1 {
     color: #008699;
 }
 
-
+.pointer {
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 576px) {
     .center-element {
