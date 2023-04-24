@@ -140,6 +140,70 @@ nav h1 {
     width: 100%;
 }
 
+#icon-toggle {
+    cursor: pointer;
+    width: 40px;
+}
+
+.side-bar-image {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.side-bar-image #account-icon {
+    display: block;
+    width: 50px;
+}
+
+.side-bar-image #close-icon {
+    cursor: pointer;
+    display: block;
+    width: 25px;
+}
+
+.side-bar {
+    align-items: flex-start;
+    background: var(--secondary-color-1);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    left: -400px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    transition: left 0.7s ease-in-out;
+    width: 70%;
+}
+
+.side-bar-show {
+    left: 0;
+}
+
+.side-bar h3 {
+    border-bottom: 1px solid var(--secondary-color-3);
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+.side-bar a {
+    border-bottom: 1px solid var(--secondary-color-3);
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+    text-align: left;
+    text-decoration: none;
+    width: 100%;
+}
+
+.side-bar a:hover {
+    background: var(--main-color-1);
+    color: #008699;
+}
+
+
+
 @media only screen and (max-width: 576px) {
     .center-element {
         width: 100% !important;
