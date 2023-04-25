@@ -30,7 +30,7 @@
 }
 
 .bg-main-color-3 {
-    background: var(--main-color-3);
+    background: var(--main-color-3) !important;
 }
 
 .text-main-color-3 {
@@ -208,6 +208,10 @@ nav h1 {
 
 .pointer {
     cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
 }
 
 @media only screen and (max-width: 576px) {

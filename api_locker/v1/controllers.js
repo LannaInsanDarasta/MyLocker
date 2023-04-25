@@ -233,6 +233,8 @@ exports.list = async (req, res) => {
 
 exports.detail = async (req, res) => {
     const { name } = req.params;
+    const dateObj = new Date();
+
     try {
         const data = await prisma.locker.findUnique({
             where: {
@@ -242,6 +244,15 @@ exports.detail = async (req, res) => {
                 id: true,
                 name: true,
                 rent: {
+                    where: {
+                        timeSchedule: {
+                            gte: new Date(dateObj.toISOString().split("T")[0]),
+                        },
+                    },
+                    take: 5,
+                    orderBy: {
+                        timeSchedule: "asc",
+                    },
                     select: {
                         timeSchedule: true,
                         maximumCheckInTime: true,

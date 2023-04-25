@@ -13,7 +13,7 @@ nav {
 }
 
 .center-elemen img {
-    display : block;
+    display: block;
     margin: 0 auto;
 }
 
@@ -29,16 +29,22 @@ button[type=button] {
     width: 100%;
 }
 
-form>p {
-    all: unset;
-    background: var(--danger-color);
+form {
+    width: 100%;
+}
+
+#status-container {
+    width: 100% !important;
+}
+
+.status-box {
     border-radius: 2px;
     box-sizing: border-box;
     color: var(--secondary-color-1);
     font-weight: 600;
     padding: 10px;
     text-align: left;
-    width: 100%;
+    /* width: 100% !important; */
 }
 
 text {
@@ -63,6 +69,19 @@ input[type=text] {
 .gunakanSebelum {
     all: unset;
     color: var(--secondary-color-3);
+}
+
+#booking-time {
+    all: unset;
+    background: var(--main-color-1);
+    border: 1px solid var(--secondary-color-1);
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: var(--secondary-color-4);
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100% !important;
 }
 
 @media only screen and (max-width: 576px) {

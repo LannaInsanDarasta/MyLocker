@@ -19,8 +19,10 @@ router.post(
     loginRequired,
     deviceIsExist,
     deviceIsNotUse,
+    // WARNING: Perlu ditambah Cek apakah user punya kartu
     controllers.startRent
 );
+router.post("/rent/use", deviceIsExist, controllers.startUseLocker);
 router.post(
     "/rent/finish",
     loginRequired,
@@ -35,7 +37,5 @@ router.post(
 );
 
 router.post("/card/register-card", controllers.registerCard);
-
-router.post("/rent/use", deviceIsExist, controllers.startUseLocker);
 
 module.exports = router;

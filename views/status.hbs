@@ -1,13 +1,31 @@
 <img src="/image/gambar_loker.png" alt="Gamber Loker"/>
-<text>Loker 1</text>
+<h6 class="text-secondary-color-3 fw-bold" id="locker-name" data-name="{{lockerName}}">{{lockerName}}</h6>
 <form>
-    <label herf=""class="mb-3 fst-italic ">Status Locker</label>
-    <p class="d-block mb-3 fst-italic">Digunakan</p>
-    <label href=""class="mt-1">ID Kartu</label>
-    <input type="text" class="mb-1" value="12345678" disabled>
-    <label href=""class="mt-1">Nama Pengguna</label>
-    <input type="text" class="mb-1" value="Lanna Insan Darasta" disabled>
-    <div class="d-flex align-items-center justify-content-between">
-        <button type="button" class="d-block mt-3 fst-italic">SELESAI</button>
+    <div id="status-container" class="mb-2 mt-3 ">
+    <label herf=""class="fst-italic mb-2">Status Locker</label>
+    </div>
+    
+    <div id="currently-in-use" class="hidden">
+        <label href=""class="mt-1">ID Kartu</label>
+        <input type="text" class="mb-1" value="{{card}}" disabled>
+        <label href=""class="mt-1">Nama Pengguna</label>
+        <input type="text" class="mb-1" id="username-form" value="{{username}}" disabled>
+        <div class="d-flex align-items-center justify-content-between">
+            <button type="button" class="d-block mt-3 fst-italic" id="finish-rent">SELESAI</button>
+        </div>
+    </div>
+
+    <div id="available-for-book" class="mt-5">
+        <label for="booking-time" class="fst-italic mb-2">Pesan Locker</label>
+        <input type="datetime-local" id="booking-time" name="booking-time">
+        <button type="button" class="d-block mb-1 fst-italic" id="booking-button">PESAN</button>
+    </div>
+
+    <div class="mt-4 hidden" id="booked-at-this-time">
+        <h6 class="fw-bold text-secondary-color-3">Note: Anda telah memesan loker ini</h6>
+        <div class="d-flex align-items-center justify-content-between">
+            <p class="gunakanSebelum" href="" class="mt-1">Gunakan Sebelum: </p>
+            <p class="gunakanSebelum" id="used-before">Loading...</p>
+        </div>
     </div>
 </form>

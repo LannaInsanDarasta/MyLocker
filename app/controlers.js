@@ -39,12 +39,29 @@ exports.daftarakun = (req, res) => {
     res.render("daftarakun", data);
 };
 
-exports.status = (req, res) => {
+exports.status = async (req, res) => {
+    const lockerName = req.params.name.replace("-", " ").replace("l", "L");
+    const user = await prisma.user.findUnique({
+        where: {
+            id: await getUser(req),
+        },
+        select: {
+            username: true,
+            Card: {
+                select: {
+                    cardNumber: true,
+                },
+            },
+        },
+    });
     const data = {
-        title: "Status Loker 1",
+        title: `Status ${lockerName}`,
         styles: ["/style/digunakan.css"],
-        scripts: [],
+        scripts: ["/js/status.js"],
         icon: "/image/humberger-menu.svg",
+        username: user.username,
+        card: user.Card.cardNumber,
+        lockerName,
     };
     res.render("status", data);
 };
