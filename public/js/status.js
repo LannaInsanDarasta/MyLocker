@@ -42,8 +42,10 @@ const basicInformationLoader = (data) => {
         // Lakukan Pengecekan Apakah Hari Ini Sudah Dipesan
         const currentLoopDate = day.toISOString().split("T")[0];
         if (rentDate.includes(currentLoopDate)) {
+            // INDEX FINDER
+            index = rentDate.indexOf(currentLoopDate);
             // Jika Loker Sudah Dipesan
-            if (data.rent[index].status === "BOOKED") {
+            if (data.rent[index]?.status === "BOOKED") {
                 bookedListContainer.insertAdjacentHTML(
                     "beforeend",
                     bookedTemplate(
@@ -70,7 +72,7 @@ const basicInformationLoader = (data) => {
             }
 
             // Jika Loker Sedang Digunakan
-            if (data.rent[index].status === "USED") {
+            if (data.rent[index]?.status === "USED") {
                 // Cek apakah tanggal penggunaan sama dengan tanggal hari ini
                 if (
                     new Date().toISOString().split("T")[0] ===
@@ -110,8 +112,6 @@ const basicInformationLoader = (data) => {
                 isAvailableForToday = true;
             }
         }
-
-        index++;
     }
 
     // Render tombol booking jika terdapat loker yang tersedia hari ini

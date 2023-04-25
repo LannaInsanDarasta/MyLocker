@@ -6,28 +6,29 @@ nav {
     margin: auto;
     padding: 1rem;
     position: fixed;
+    text-align: left;
     top: 0;
     transform: translate(-50%, 0);
     width: 480px;
-    text-align:left;
 }
 
 
-h3{
+h3 {
     color: var(--main-color-3);
     font-weight: 600;
 }
+
 text {
     color: var(--secondary-color-3);
     text-decoration: none;
 }
 
-label{
+label {
     color: var(--secondary-color-3);
     text-decoration: none;
 }
 
-input[type=text]{
+input[type=text] {
     all: unset;
     border: 2px var(--secondary-color-3) solid;
     border-radius: 4px;
@@ -36,37 +37,54 @@ input[type=text]{
     width: 100%;
 }
 
-.gunakanSebelum{
+.gunakanSebelum {
     all: unset;
-    color: var(--secondary-color-3)
+    color: var(--secondary-color-3);
 }
 
-.main-content{
-    width: 100%;
+.main-content {
     box-sizing: border-box;
-}
-
-form{
     width: 100%;
 }
 
-.history-item{flex: 1;}
+form {
+    width: 100%;
+}
 
-.history-template{
-    border-bottom: 1px var(--secondary-color-3) solid ;
+.history-item:nth-child(1) {
+    flex: 1;
+    text-align: left;
+    width: 100%;
 }
-.history-template:first-of-type{
-    border-top: 1px var(--secondary-color-3) solid ;
+
+.history-item:nth-child(2) {
+    flex: 1;
+    text-align: left;
 }
+
+.history-item:nth-child(3) {
+    flex: 3;
+    text-align: right;
+}
+
+.history-template {
+    border-bottom: 1px var(--secondary-color-3) solid;
+}
+
+.history-template:first-of-type {
+    border-top: 1px var(--secondary-color-3) solid;
+}
+
 @media only screen and (max-width: 576px) {
-    .center-element{
+    .center-element {
         padding: 1.5rem;
     }
-    main img{
-       max-width: 100px;
+
+    main img {
+        max-width: 100px;
     }
-   
+
     nav {
-       width: 100%;
-   }
-}   
+        width: 100%;
+    }
+}

@@ -70,7 +70,7 @@ exports.profil = (req, res) => {
     const data = {
         title: "Profil",
         styles: ["/style/profil.css"],
-        scripts: ["js/profil.js"],
+        scripts: ["/js/profil.js"],
         icon: "/image/humberger-menu.svg",
     };
     res.render("profil", data);

@@ -38,6 +38,7 @@ model User {
   Card              Card?       @relation(fields: [cardId], references: [id])
   cardId            String?     @unique
   rent              Rent[]
+  history           History[]
 }
 
 model Profil {
@@ -77,6 +78,17 @@ model Rent {
   userId             String?
   Locker             Locker?   @relation(fields: [lockerId], references: [id], onDelete: Cascade)
   lockerId           String?
+}
+
+model History {
+  id           String    @id @default(cuid())
+  cardNumber   String?
+  locker       String?
+  timeSchedule DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  User         User?     @relation(fields: [userId], references: [id])
+  userId       String?
 }
 
 enum TOKEN_TYPE {

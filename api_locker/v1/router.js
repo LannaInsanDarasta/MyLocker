@@ -30,6 +30,7 @@ router.post(
     deviceIsUse,
     controllers.finishRent
 );
+router.get("/rent/history", loginRequired, controllers.historyList);
 router.post(
     "/card/generate-token",
     loginRequired,

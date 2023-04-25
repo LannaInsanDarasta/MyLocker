@@ -145,6 +145,11 @@ exports.detail = async (req, res) => {
                 id: true,
                 profil: { select: { full_name: true, photo: true } },
                 role: { select: { name: true } },
+                Card: {
+                    select: {
+                        cardNumber: true,
+                    },
+                },
             },
         });
         return resSuccess({

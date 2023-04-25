@@ -178,7 +178,6 @@ exports.list = async (req, res) => {
         }
 
         deviceList.forEach((device) => {
-            console.log(device.name);
             let rentStatus = null;
 
             // Jika terdapat tanggal peminjaman yang sama dengan hari ini maka status akan berubah menjadi tidak tersedia
@@ -199,7 +198,6 @@ exports.list = async (req, res) => {
                         rentStatus = "Tidak Tersedia, Sudah Digunakan Saat Ini";
                     }
                 } else {
-                    console.log(rentStatus);
                     if (rentStatus == null)
                         rentStatus = "Tersedia Untuk Hari Ini";
                 }
@@ -458,6 +456,7 @@ exports.finishRent = async (req, res) => {
                 User: {
                     select: {
                         username: true,
+                        id: true,
                         Card: {
                             select: {
                                 cardNumber: true,
@@ -480,6 +479,15 @@ exports.finishRent = async (req, res) => {
         const rentData = await prisma.rent.delete({
             where: {
                 id: findData.id,
+            },
+        });
+
+        await prisma.history.create({
+            data: {
+                cardNumber: findData.User.Card.cardNumber,
+                timeSchedule: findData.timeSchedule,
+                userId: findData.User.id,
+                locker: name,
             },
         });
 
@@ -620,6 +628,117 @@ exports.registerCard = async (req, res) => {
         return resError({
             res,
             title: "Failed to register card",
+            errors: error,
+        });
+    }
+};
+
+exports.historyList = async (req, res) => {
+    try {
+        const { search, cursor } = req.query;
+        const userId = await getUser(req);
+        let historyList;
+
+        if (search) {
+            if (!cursor) {
+                historyList = await prisma.history.findMany({
+                    where: {
+                        locker: {
+                            contains: search,
+                            mode: "insensitive",
+                        },
+                        userId,
+                    },
+                    orderBy: {
+                        timeSchedule: "asc",
+                    },
+                    take: ITEM_LIMIT,
+                    select: {
+                        id: true,
+                        cardNumber: true,
+                        timeSchedule: true,
+                        locker: true,
+                    },
+                });
+            }
+
+            if (cursor) {
+                historyList = await prisma.history.findMany({
+                    where: {
+                        locker: {
+                            contains: search,
+                            mode: "insensitive",
+                        },
+                        userId,
+                    },
+                    orderBy: {
+                        timeSchedule: "asc",
+                    },
+                    take: ITEM_LIMIT,
+                    skip: 1,
+                    cursor: {
+                        id: cursor,
+                    },
+                    select: {
+                        id: true,
+                        cardNumber: true,
+                        timeSchedule: true,
+                        locker: true,
+                    },
+                });
+            }
+        }
+
+        if (!search) {
+            if (!cursor) {
+                historyList = await prisma.history.findMany({
+                    where: {
+                        userId,
+                    },
+                    orderBy: {
+                        timeSchedule: "asc",
+                    },
+                    take: ITEM_LIMIT,
+                    select: {
+                        id: true,
+                        cardNumber: true,
+                        timeSchedule: true,
+                        locker: true,
+                    },
+                });
+            }
+            if (cursor) {
+                historyList = await prisma.history.findMany({
+                    where: {
+                        userId,
+                    },
+                    orderBy: {
+                        timeSchedule: "asc",
+                    },
+                    take: ITEM_LIMIT,
+                    skip: 1,
+                    cursor: {
+                        id: cursor,
+                    },
+                    select: {
+                        id: true,
+                        cardNumber: true,
+                        locker: true,
+                        timeSchedule: true,
+                    },
+                });
+            }
+        }
+
+        return resSuccess({
+            res,
+            title: "Success get user rent history list",
+            data: historyList,
+        });
+    } catch (error) {
+        return resError({
+            res,
+            title: "Cant get user rent history list",
             errors: error,
         });
     }
