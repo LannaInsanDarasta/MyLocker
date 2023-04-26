@@ -22,6 +22,7 @@ router.post(
     // WARNING: Perlu ditambah Cek apakah user punya kartu
     controllers.startRent
 );
+router.get("/rent/user-list", loginRequired, controllers.userRent);
 router.post("/rent/use", deviceIsExist, controllers.startUseLocker);
 router.post(
     "/rent/finish",

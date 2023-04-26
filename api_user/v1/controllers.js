@@ -150,6 +150,8 @@ exports.detail = async (req, res) => {
                         cardNumber: true,
                     },
                 },
+                token: true,
+                tokenExpiredAt: true,
             },
         });
         return resSuccess({

@@ -485,7 +485,8 @@ exports.finishRent = async (req, res) => {
         await prisma.history.create({
             data: {
                 cardNumber: findData.User.Card.cardNumber,
-                timeSchedule: findData.timeSchedule,
+                // timeSchedule: findData.timeSchedule,
+                timeSchedule: new Date(),
                 userId: findData.User.id,
                 locker: name,
             },
@@ -584,7 +585,7 @@ exports.registerCard = async (req, res) => {
         }
 
         // Cek Apakah otp masih aktif
-        if (new Date() <= new Date(availableData.tokenExpiredAt)) {
+        if (new Date() >= new Date(availableData.tokenExpiredAt)) {
             // jika token kadaluarsa maka hapus token di db
             await prisma.user.update({
                 where: {
@@ -739,6 +740,55 @@ exports.historyList = async (req, res) => {
         return resError({
             res,
             title: "Cant get user rent history list",
+            errors: error,
+        });
+    }
+};
+
+exports.userRent = async (req, res) => {
+    try {
+        const userId = await getUser(req);
+        const dateObj = new Date();
+
+        const list = await prisma.rent.findMany({
+            where: {
+                userId,
+                timeSchedule: {
+                    gte: new Date(dateObj.toISOString().split("T")[0]),
+                },
+            },
+            orderBy: {
+                maximumCheckInTime: "asc",
+            },
+            take: 5,
+            select: {
+                id: true,
+                maximumCheckInTime: true,
+                Locker: {
+                    select: {
+                        name: true,
+                    },
+                },
+                User: {
+                    select: {
+                        Card: {
+                            select: {
+                                cardNumber: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        return resSuccess({
+            res,
+            title: "Success get user rent list",
+            data: list,
+        });
+    } catch (error) {
+        return resError({
+            res,
+            title: "Cant get user booking rent",
             errors: error,
         });
     }
