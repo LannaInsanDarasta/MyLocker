@@ -125,6 +125,7 @@ generalDataLoader({
     func: basicInformationLoader,
 });
 
+// BOOKING
 bookingButton.addEventListener("click", async (e) => {
     e.preventDefault();
     const currentDate = new Date();
@@ -139,6 +140,24 @@ bookingButton.addEventListener("click", async (e) => {
 
         if (resp.success) {
             alert("Berhasil Memesan Loker");
+            const dateObj = new Date();
+            const respDate = new Date(resp.data.timeSchedule)
+                .toISOString()
+                .split("T")[0];
+            // Jika membooking di hari ini, ganti list yang sudah ada
+            if (respDate === dateObj.toISOString().split("T")[0]) {
+                const firstBox = document.querySelectorAll(".status-box")[0];
+                firstBox.textContent = `Dipesan pada ${respDate}`;
+                firstBox.classList.remove("bg-main-color-3");
+                firstBox.classList.add("bg-warning");
+                availableForBook.classList.add("hidden");
+                bookedAtThisTime.classList.remove("hidden");
+                usedBefore.textContent =
+                    days(resp.data.maximumCheckInTime).replace(
+                        "pukul",
+                        "Pukul"
+                    ) + " WIB";
+            }
         }
 
         if (!resp.success) {
@@ -160,6 +179,18 @@ finishRentButtton.addEventListener("click", async (e) => {
 
     if (resp.success) {
         alert("Berhasil Menyelesaikan Penggunaan Loker");
+        const dateObj = new Date();
+        const respDate = new Date(resp.data.timeSchedule)
+            .toISOString()
+            .split("T")[0];
+        if (respDate === dateObj.toISOString().split("T")[0]) {
+            const firstBox = document.querySelectorAll(".status-box")[0];
+            firstBox.textContent = `Tersedia pada ${respDate}`;
+            firstBox.classList.remove("bg-danger");
+            firstBox.classList.add("bg-main-color-3");
+            availableForBook.classList.remove("hidden");
+            currentlyInUse.classList.add("hidden");
+        }
     }
 
     if (!resp.success) {

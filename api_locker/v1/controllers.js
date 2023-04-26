@@ -436,6 +436,7 @@ exports.finishRent = async (req, res) => {
     try {
         // Ketika Pengguna telah selesai menggunakan loker
         const { name } = req.body;
+        const userId = await getUser(req);
         const currentDate = new Date(new Date().toISOString().split("T")[0]);
         let findData;
 
@@ -447,6 +448,7 @@ exports.finishRent = async (req, res) => {
                 timeSchedule: {
                     gte: currentDate,
                 },
+                userId,
             },
             select: {
                 id: true,
