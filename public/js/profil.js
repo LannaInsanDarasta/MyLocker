@@ -20,6 +20,7 @@ const fetchData = async () => {
     idPenggunaForm.value= resp.data.idPengguna;
     nomorHandphoneForm.value= resp.data.noHandphone;
     emailForm.value= resp.data.email;
+    
 }
 
 fetchData()
