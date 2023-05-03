@@ -1,65 +1,42 @@
 <img src="/image/gambar_akun.png" alt="Gambar Akun"/>
 <form>
     <label href=""class="mt-1">Nama</label>
-    <input type="text" class="mb-1" value="Lanna Insan Darasta" disabled id="nama">
+    <input type="text" class="mb-1" value="Loading..." disabled id="nama">
     <label href=""class="mt-1">ID Kartu</label>
-    <input type="text" class="mb-1"value="1907421004" disabled id="idPengguna">
+    <input type="text" class="mb-1"value="Loading..." disabled id="idKartu">
     <label href=""class="mt-1">No Handphonne</label>
-    <input type="text" class="mb-1"value="081219074235" disabled id="noHandphone">
+    <input type="text" class="mb-1"value="Loading..." disabled id="noHandphone">
     <label href=""class="mt-1">E-Mail</label>
-    <input type="text" class="mb-1"value="lanna191100@gmail.com" disabled id="E-mail">
-    <hr>
-    <h3 class="mb-3">Riwayat</h3>
-    <div class="history-container">
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
+    <input type="text" class="mb-1"value="Loading..." disabled id="E-mail">
 
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-        </div>
-        <div class="history-template d-flex justify-content-between">
-            <p class="history-item text-secondary-color-3 text-start my-2">Loker 1</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">05/03/22</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
-            <p class="history-item text-secondary-color-3 text-end my-2">00:00</p>
+    <div class="hidden" id="register-container">
+        <h3 class="mt-4">Registrasi Kartu Anda</h3>
+        <small class="fst-italic text-secondary-color-3">Untuk merigistrasi kartu anda, tekan tombol di bawah ini kemudian anda akan mendapatkan kode OTP. Masukan OTP pada loker lalu tempelkan kartu yang ingin anda daftarkan pada reader</small>
+        <p class="text-center mt-2 pointer py-2 rounded-13 bg-main-color-1 rounded-3 text-main-color-3" id="token-button">Register Card</p>
+        <div class="d-flex hidden align-items-center justify-content-between text-secondary-color-3" id="token-container">
+            <p class="fw-bold">Token Anda: <span id="token">load..</span></p>
+            <p >Gunakan Sebelum <span id="maximum-token">load</span> </p>
         </div>
     </div>
+
+    <h3 class="mt-4">Loker Anda</h3>
+    <small class="fst-italic text-secondary-color-3">Menampilkan 5 daftar loker yang anda pesan</small>
+    <div class="rent-container mt-2">
+        <div class="history-template d-flex justify-content-between">
+            <p class="history-item text-secondary-color-3 my-2 fw-bold">Locker</p>
+            <p class="history-item text-secondary-color-3 my-2 fw-bold">Card</p>
+            <p class="history-item text-secondary-color-3 my-2 fw-bold">Max Check In</p>
+        </div>
+    </div>
+    <h3 class="mb-3 mt-4">Riwayat</h3>
+    <div class="history-container">
+        <div class="history-template d-flex justify-content-between">
+            <p class="history-item text-secondary-color-3 my-2 fw-bold">Locker</p>
+            <p class="history-item text-secondary-color-3 my-2 fw-bold">Card</p>
+            <p class="history-item text-secondary-color-3 my-2 fw-bold">Finish</p>
+        </div>
+    </div>
+    <p class="text-center mt-4 pointer py-2 rounded-13 bg-secondary-color-2 rounded-3 mb-5 text-secondary-color-4" id="showMore">Show More</p>
+
     
 </form>

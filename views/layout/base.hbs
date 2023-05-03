@@ -18,8 +18,18 @@
 
 <body>
     <nav>
-        <img src="{{icon}}" alt="Logo Akun">
+        <img src="{{icon}}" alt="Logo Akun" id="icon-toggle">
         <h5 class="mb-1 fw-bold text-secondary-color-1 ms-3"> {{title}} </h5>
+        <div class="side-bar">
+            <div class="side-bar-image">
+                <img src="/image/gambar_akun.png" alt="Close" id="account-icon">
+                <img src="/image/close.svg" alt="Account" id="close-icon">
+            </div>
+            <h3 class="text-secondary-color-3 text-start mt-3">{{username}}</h3>
+            <a href="/" class="text-secondary-color-3">Dashboard</a>
+            <a href="/profil" class="text-secondary-color-3">Profil</a>
+            <a href="/logout" class="text-danger-color">Logout</a>
+        </div>
     </nav>
     <div class="center-element d-flex flex-column align-items-center justify-content-center">
         {{{body}}}
@@ -33,6 +43,8 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
     <script src="/js/util/httpRequest.js"></script>
+    <script src="/js/util/sideBar.js"></script>
+    <script src="/js/util/timeformater.js"></script>
     {{#if scripts}}
         {{#each scripts}}
             <script src="{{this}}"></script>

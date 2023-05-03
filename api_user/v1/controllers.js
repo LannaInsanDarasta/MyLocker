@@ -5,8 +5,6 @@ const {
     hashValidator,
     generateAuthorizationToken,
     getUser,
-    generateResetUrl,
-    getResetUrlPayload,
 } = require("../../services/auth");
 const {
     resError,
@@ -14,7 +12,7 @@ const {
     ErrorException,
 } = require("../../services/responseHandler");
 const { sendEmail, urlTokenGenerator } = require("../../services/mailing");
-const { random: stringGenerator } = require("@supercharge/strings");
+
 const crypto = require("crypto");
 const prisma = new PrismaClient();
 const ITEM_LIMIT = Number(process.env.ITEM_LIMIT) || 10;
@@ -147,6 +145,13 @@ exports.detail = async (req, res) => {
                 id: true,
                 profil: { select: { full_name: true, photo: true } },
                 role: { select: { name: true } },
+                Card: {
+                    select: {
+                        cardNumber: true,
+                    },
+                },
+                token: true,
+                tokenExpiredAt: true,
             },
         });
         return resSuccess({

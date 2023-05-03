@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Rent" ALTER COLUMN "timeSchedule" DROP NOT NULL,
+ALTER COLUMN "maximumCheckInTime" DROP NOT NULL,
+ALTER COLUMN "status" DROP NOT NULL;

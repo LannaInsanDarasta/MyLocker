@@ -1,12 +1,22 @@
-const { setCookie } = require("../services/auth");
-
+const { setCookie, getUser } = require("../services/auth");
+const prisma = require("../prisma/client");
 // Put your controller code here
-exports.beranda = (req, res) => {
+exports.beranda = async (req, res) => {
+    const { username } = await prisma.user.findUnique({
+        where: {
+            id: await getUser(req),
+        },
+        select: {
+            username: true,
+        },
+    });
+
     const data = {
         title: "MyLocker",
         styles: ["/style/beranda.css"],
-        scripts: [],
+        scripts: ["/js/beranda.js"],
         icon: "/image/logo_akun.png",
+        username,
     };
     res.render("beranda", data);
 };
@@ -29,12 +39,29 @@ exports.daftarakun = (req, res) => {
     res.render("daftarakun", data);
 };
 
-exports.status = (req, res) => {
+exports.status = async (req, res) => {
+    const lockerName = req.params.name.replace("-", " ").replace("l", "L");
+    const user = await prisma.user.findUnique({
+        where: {
+            id: await getUser(req),
+        },
+        select: {
+            username: true,
+            Card: {
+                select: {
+                    cardNumber: true,
+                },
+            },
+        },
+    });
     const data = {
-        title: "Status Loker 1",
+        title: `Status ${lockerName}`,
         styles: ["/style/digunakan.css"],
-        scripts: [],
-        icon: "/image/logo_back.png",
+        scripts: ["/js/status.js"],
+        icon: "/image/humberger-menu.svg",
+        username: user.username,
+        card: user.Card.cardNumber,
+        lockerName,
     };
     res.render("status", data);
 };
@@ -43,8 +70,8 @@ exports.profil = (req, res) => {
     const data = {
         title: "Profil",
         styles: ["/style/profil.css"],
-        scripts: ["js/profil.js"],
-        icon: "/image/logo_back.png",
+        scripts: ["/js/profil.js"],
+        icon: "/image/humberger-menu.svg",
     };
     res.render("profil", data);
 };
