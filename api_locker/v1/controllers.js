@@ -5,6 +5,7 @@ const {
     generateInteger,
 } = require("../../services/stringGenerator");
 const { getUser } = require("../../services/auth");
+const { sendWhatsappNotification } = require("../../services/notification");
 const ITEM_LIMIT = 20;
 
 exports.createLockerDevice = async (req, res) => {
@@ -344,10 +345,10 @@ exports.startRent = async (req, res) => {
 };
 
 exports.startUseLocker = async (req, res) => {
+    let findData;
     try {
         const { name, cardNumber } = req.body;
         let openLockerData;
-        let findData;
 
         const currentDate = new Date(new Date().toISOString().split("T")[0]);
 
@@ -382,7 +383,7 @@ exports.startUseLocker = async (req, res) => {
                 },
             },
         });
-
+        console.log (datas);
         datas.forEach((data) => {
             if (
                 data.timeSchedule.toISOString().split("T")[0] ===
@@ -394,7 +395,7 @@ exports.startUseLocker = async (req, res) => {
         });
 
         if (findData?.User?.Card?.cardNumber !== cardNumber)
-            throw "Card Not Match";
+            throw {error: "Card Not Match", findData};
 
         if (
             findData.status !== "USED" &&
@@ -422,8 +423,30 @@ exports.startUseLocker = async (req, res) => {
             title: "Success open locker",
             data: openLockerData,
         });
+
+        // const user = await prisma.user.findUnique({
+        //     where: { id: userID },
+        //     select: {
+        //         noHandphone: true,
+        //     }
+        // });
+
+        // if (user.noHandphone) {
+        //     sendWhatsappNotification( {
+        //         url: "https://api.fonnte.com/send",
+        //         body: {
+        //             target: user.noHandphone,
+        //             message:
+        //             "PINTU LOKER TERBUKA"
+        //         },
+        //     });
+        // }
+
     } catch (error) {
         console.log(error);
+        console.log (findData);
+        // ambil id user yang sedang meminjam loker
+        // kirim notofikasi ke user
         return resError({
             res,
             title: "Failed start using locker",
