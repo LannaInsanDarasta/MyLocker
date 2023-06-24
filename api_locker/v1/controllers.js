@@ -5,6 +5,7 @@ const {
     generateInteger,
 } = require("../../services/stringGenerator");
 const { getUser } = require("../../services/auth");
+const { sendWhatsappNotification } = require("../../services/notification");
 const ITEM_LIMIT = 20;
 
 exports.createLockerDevice = async (req, res) => {
@@ -344,8 +345,8 @@ exports.startRent = async (req, res) => {
 };
 
 exports.startUseLocker = async (req, res) => {
+    const { name, cardNumber } = req.body;
     try {
-        const { name, cardNumber } = req.body;
         let openLockerData;
         let findData;
 
@@ -424,6 +425,36 @@ exports.startUseLocker = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        const currentDate = new Date(new Date().toISOString().split("T")[0]);
+
+        const datas = await prisma.rent.findMany({
+            where: {
+                Locker: {
+                    name,
+                },
+                timeSchedule: {
+                    gte: currentDate,
+                },
+            },
+        });
+        const userId = datas[0]["userId"];
+        const { noHandphone } = await prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+            select: {
+                noHandphone: true,
+            },
+        });
+        if (noHandphone) {
+            sendWhatsappNotification({
+                url: "https://api.fonnte.com/send",
+                body: {
+                    target: noHandphone,
+                    message: "heyy ada yang buka loker anda",
+                },
+            });
+        }
         return resError({
             res,
             title: "Failed start using locker",
