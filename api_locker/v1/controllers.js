@@ -424,7 +424,6 @@ exports.startUseLocker = async (req, res) => {
             data: openLockerData,
         });
     } catch (error) {
-        console.log(error);
         const currentDate = new Date(new Date().toISOString().split("T")[0]);
 
         const datas = await prisma.rent.findMany({
@@ -437,23 +436,25 @@ exports.startUseLocker = async (req, res) => {
                 },
             },
         });
-        const userId = datas[0]["userId"];
-        const { noHandphone } = await prisma.user.findUnique({
-            where: {
-                id: userId,
-            },
-            select: {
-                noHandphone: true,
-            },
-        });
-        if (noHandphone) {
-            sendWhatsappNotification({
-                url: "https://api.fonnte.com/send",
-                body: {
-                    target: noHandphone,
-                    message: "heyy ada yang buka loker anda",
+        if (datas.length > 0) {
+            const userId = datas[0]["userId"];
+            const { noHandphone } = await prisma.user.findUnique({
+                where: {
+                    id: userId,
+                },
+                select: {
+                    noHandphone: true,
                 },
             });
+            if (noHandphone) {
+                sendWhatsappNotification({
+                    url: "https://api.fonnte.com/send",
+                    body: {
+                        target: noHandphone,
+                        message: "heyy ada yang buka loker anda",
+                    },
+                });
+            }
         }
         return resError({
             res,
