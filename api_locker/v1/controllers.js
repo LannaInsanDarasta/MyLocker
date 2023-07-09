@@ -345,9 +345,8 @@ exports.startRent = async (req, res) => {
 };
 
 exports.startUseLocker = async (req, res) => {
-    let findData;
+    const { name, cardNumber } = req.body;
     try {
-        const { name, cardNumber } = req.body;
         let openLockerData;
 
         const currentDate = new Date(new Date().toISOString().split("T")[0]);
@@ -443,10 +442,38 @@ exports.startUseLocker = async (req, res) => {
         // }
 
     } catch (error) {
-        console.log(error);
-        console.log (findData);
-        // ambil id user yang sedang meminjam loker
-        // kirim notofikasi ke user
+        const currentDate = new Date(new Date().toISOString().split("T")[0]);
+
+        const datas = await prisma.rent.findMany({
+            where: {
+                Locker: {
+                    name,
+                },
+                timeSchedule: {
+                    gte: currentDate,
+                },
+            },
+        });
+        if (datas.length > 0) {
+            const userId = datas[0]["userId"];
+            const { noHandphone } = await prisma.user.findUnique({
+                where: {
+                    id: userId,
+                },
+                select: {
+                    noHandphone: true,
+                },
+            });
+            if (noHandphone) {
+                sendWhatsappNotification({
+                    url: "https://api.fonnte.com/send",
+                    body: {
+                        target: noHandphone,
+                        message: "PERINGATAN!!!\n Ada yang mencoba buka loker anda!",
+                    },
+                });
+            }
+        }
         return resError({
             res,
             title: "Failed start using locker",

@@ -1,28 +1,19 @@
+const axios = require("axios");
 async function sendWhatsappNotification({ url, body = null, method = "POST" }) {
-    let response;
-    if (body) {
-      response = await fetch(url, {
+    const config = {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "ir3yj-39#V4iAs39tfqe",
+            "Content-Type": "application/json",
+            Authorization: process.env.WHATSAPP_SECRET,
         },
         method,
-        body: JSON.stringify(body),
+        data: body,
+        url,
         redirect: "follow",
-      });
-    }
-  
-    if (!body) {
-      response = await fetch(url, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method,
-      });
-    }
-  
-    const data = await response.json();
-    return data;
-  }
-  
-  module.exports = { sendWhatsappNotification };
+    };
+
+    const response = await axios(config);
+    console.log(response.data);
+    return response.data;
+}
+
+module.exports = { sendWhatsappNotification };
